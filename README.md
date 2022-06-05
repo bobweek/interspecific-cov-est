@@ -1,1 +1,3 @@
 # interspecific-cov-est
+
+This repository contains an R script that supplements the preprint "A model of coevolution and local adaptation between hosts and parasites in continuous space" by Bob Week and Gideon Bradburd (2022). More precisely, this script details how one may estimate the interspecific colocated covariance for a pair of coevolving species distributed continuously in a two-dimensional habitat.
