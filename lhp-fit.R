@@ -41,8 +41,8 @@ x = seq(0,width,.1)
 y = seq(0,height,.1)
 
 # this provides a single (n=1) realization for each simulated random field
-z.h <- RFsimulate(model.h, x, y, n=1)
-z.p <- RFsimulate(model.p, x, y, n=1)
+z.h = RFsimulate(model.h, x, y, n=1)
+z.p = RFsimulate(model.p, x, y, n=1)
 
 #
 # section 2: take survey sample from the simulated GRF
@@ -53,20 +53,20 @@ h.num = 100
 p.num = 100
 
 # take sample
-xy.h <- coordinates(z.h)
-xy.p <- coordinates(z.p)
-pts.h <- sample(nrow(xy.h), min(h.num, nrow(xy.p) / 2))
-pts.p <- sample(nrow(xy.p), min(p.num, nrow(xy.h) / 2))
-dta.h <- matrix(nrow=nrow(xy), as.vector(z.h))[pts.h, ]
-dta.p <- matrix(nrow=nrow(xy), as.vector(z.p))[pts.p, ]
+xy.h = coordinates(z.h)
+xy.p = coordinates(z.p)
+pts.h = sample(nrow(xy.h), min(h.num, nrow(xy.p) / 2))
+pts.p = sample(nrow(xy.p), min(p.num, nrow(xy.h) / 2))
+dta.h = matrix(nrow=nrow(xy.h), as.vector(z.h))[pts.h, ]
+dta.p = matrix(nrow=nrow(xy.p), as.vector(z.p))[pts.p, ]
 
 # this step adds sampling noise due to variation among individuals
 # at each location
 dta.h = dta.h + rnorm(h.num,sd=sqrt(v.h))
 dta.p = dta.p + rnorm(p.num,sd=sqrt(v.p))
 
-dta.h <- cbind(xy[pts.h, ], dta.h)
-dta.p <- cbind(xy[pts.p, ], dta.p)
+dta.h = cbind(xy.h[pts.h, ], dta.h)
+dta.p = cbind(xy.p[pts.p, ], dta.p)
 
 # visualize the sampled points
 plot(z.h, dta.h)
@@ -81,11 +81,11 @@ plot(z.p, dta.p)
 # the colocated variance and spatial scale be fit 
 # via maximum likelihood. we only define this one time
 # since the form of the model is the same for each species
-estmodel <- RMmatern(nu=1, var=NA, scale=NA)
+estmodel = RMmatern(nu=1, var=NA, scale=NA)
 
 # these lines do the actual fitting (may take a while)
-(fit.h <- RFfit(estmodel, data=dta.h))
-(fit.p <- RFfit(estmodel, data=dta.p))
+(fit.h = RFfit(estmodel, data=dta.h))
+(fit.p = RFfit(estmodel, data=dta.p))
 
 # these are the estimated spatial scales for each species
 lmda.h = fit.h@table$ml[1]
